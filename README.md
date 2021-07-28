@@ -1,0 +1,1 @@
+SharpWiki is a .Net API for MediaWiki automation/bots.

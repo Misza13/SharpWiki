@@ -13,6 +13,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWiki.IntegrationTests", "SharpWiki.IntegrationTests\SharpWiki.IntegrationTests.csproj", "{7728EC47-1E68-47E5-89B6-2A5765458114}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{6D9A15A1-3392-4D08-9AC0-AE6F88DC0998}"
+ProjectSection(SolutionItems) = preProject
+	.gitignore = .gitignore
+	README.md = README.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
