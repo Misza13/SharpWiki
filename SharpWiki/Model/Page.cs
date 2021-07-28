@@ -30,73 +30,46 @@
             this.Title = title;
         }
 
-        public async IAsyncEnumerable<Page> GetLinks()
+        public IAsyncEnumerable<Page> GetLinks()
         {
-            string plcontinue = null;
-
-            while (true)
-            {
-                var request = new LinksQueryRequest(this.CanonicalTitle);
-
-                if (!string.IsNullOrEmpty(plcontinue))
-                {
-                    request = request.WithContinuation(plcontinue);
-                }
-                
-                var result = await this.Site.ApiWrapper.Get(request);
-                
-                var links = result.query.pages.First().Value.links;
-            
-                foreach (var linkInfo in links)
-                {
-                    yield return this.Site.GetPage(linkInfo.ns, linkInfo.title);
-                }
-
-                if (result.batchcomplete == "")
-                {
-                    yield break;
-                }
-
-                plcontinue = result.@continue.plcontinue;
-            }
+            return this.Site.ApiWrapper.RunPaginatingQuery
+                <LinksQueryRequest, LinksQueryResult, LinksQueryResult.LinkInfo, Page>(
+                    () => new LinksQueryRequest(this.CanonicalTitle),
+                    (request, c) => request.WithContinuation(c),
+                    result => result.query.pages.First().Value.links,
+                    item =>
+                    {
+                        var ns = item.ns;
+                        var title = item.title;
+                        if (ns != 0)
+                        {
+                            title = title.Split(':', 2)[1];
+                        }
+                    
+                        return this.Site.GetCategory(ns, title);
+                    },
+                    result => result?.@continue?.plcontinue);
         }
 
-        public async IAsyncEnumerable<Category> GetCategories()
+        public IAsyncEnumerable<Category> GetCategories()
         {
-            string clcontinue = null;
-            
-            while (true)
-            {
-                var request = new CategoriesQueryRequest(this.CanonicalTitle);
-
-                if (!string.IsNullOrEmpty(clcontinue))
-                {
-                    request = request.WithContinuation(clcontinue);
-                }
-                
-                var result = await this.Site.ApiWrapper.Get(request);
-                
-                var categories = result.query.pages.First().Value.categories;
-            
-                foreach (var categoryInfo in categories)
-                {
-                    var ns = categoryInfo.ns;
-                    var title = categoryInfo.title;
-                    if (ns != 0)
+            return this.Site.ApiWrapper.RunPaginatingQuery
+                <CategoriesQueryRequest, CategoriesQueryResult, CategoriesQueryResult.CategoryInfo, Category>(
+                    () => new CategoriesQueryRequest(this.CanonicalTitle),
+                    (request, c) => request.WithContinuation(c),
+                    result => result.query.pages.First().Value.categories,
+                    item =>
                     {
-                        title = title.Split(':', 2)[1];
-                    }
-                    
-                    yield return this.Site.GetCategory(ns, title);
-                }
-
-                if (result.batchcomplete == "")
-                {
-                    yield break;
-                }
-
-                clcontinue = result.@continue.clcontinue;
-            }
+                        var ns = item.ns;
+                        var title = item.title;
+                        if (ns != 0)
+                        {
+                            title = title.Split(':', 2)[1];
+                        }
+                        
+                        return this.Site.GetCategory(ns, title);
+                    },
+                    result => result?.@continue?.clcontinue);
         }
 
         public override string ToString()
