@@ -61,6 +61,44 @@
             }
         }
 
+        public async IAsyncEnumerable<Category> GetCategories()
+        {
+            string clcontinue = null;
+            
+            while (true)
+            {
+                var request = new CategoriesQueryRequest(this.CanonicalTitle);
+
+                if (!string.IsNullOrEmpty(clcontinue))
+                {
+                    request = request.WithContinuation(clcontinue);
+                }
+                
+                var result = await this.Site.ApiWrapper.Get(request);
+                
+                var categories = result.query.pages.First().Value.categories;
+            
+                foreach (var categoryInfo in categories)
+                {
+                    var ns = categoryInfo.ns;
+                    var title = categoryInfo.title;
+                    if (ns != 0)
+                    {
+                        title = title.Split(':', 2)[1];
+                    }
+                    
+                    yield return this.Site.GetCategory(ns, title);
+                }
+
+                if (result.batchcomplete == "")
+                {
+                    yield break;
+                }
+
+                clcontinue = result.@continue.clcontinue;
+            }
+        }
+
         public override string ToString()
         {
             return $"Page({this.CanonicalTitle})";

@@ -22,7 +22,7 @@ namespace SharpWiki.IntegrationTests
         }
 
         [Test]
-        public async Task Blah()
+        public async Task LinksFromArticle()
         {
             var page = this.site
                 .GetNamespace("")
@@ -35,7 +35,7 @@ namespace SharpWiki.IntegrationTests
         }
         
         [Test]
-        public async Task Misza13()
+        public async Task LinksFromUserPage()
         {
             var page = this.site
                 .GetNamespace("User")
@@ -44,6 +44,31 @@ namespace SharpWiki.IntegrationTests
             await foreach (var link in page.GetLinks())
             {
                 Console.WriteLine(link);
+            }
+        }
+
+        [Test]
+        public async Task ArticleCategories()
+        {
+            var page = this.site
+                .GetArticle("Albert Einstein");
+
+            await foreach (var category in page.GetCategories())
+            {
+                Console.WriteLine(category);
+            }
+        }
+        
+        [Test]
+        public async Task UserPageCategories()
+        {
+            var page = this.site
+                .GetNamespace("User")
+                .GetPage("Misza13");
+
+            await foreach (var category in page.GetCategories())
+            {
+                Console.WriteLine(category);
             }
         }
     }

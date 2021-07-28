@@ -96,5 +96,10 @@
         {
             return this.GetNamespace(namespaceName).GetPage(title);
         }
+
+        public Category GetCategory(int namespaceId, string title)
+        {
+            return new Category(this, namespaceId, title);
+        }
     }
 }
