@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWiki", "SharpWiki\SharpWiki.csproj", "{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWiki.Infrastructure", "SharpWiki.Infrastructure\SharpWiki.Infrastructure.csproj", "{D765D65A-5FD8-4405-92D3-C9472E3DFAC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWiki.UnitTests", "SharpWiki.UnitTests\SharpWiki.UnitTests.csproj", "{65FF8E8A-830E-4848-8B26-37AD3F77BB73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{BF458AB0-0759-4473-801F-F41F36D57FD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B6C1728-834F-41E6-A0DA-14F859776F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWiki.IntegrationTests", "SharpWiki.IntegrationTests\SharpWiki.IntegrationTests.csproj", "{7728EC47-1E68-47E5-89B6-2A5765458114}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{6D9A15A1-3392-4D08-9AC0-AE6F88DC0998}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D765D65A-5FD8-4405-92D3-C9472E3DFAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D765D65A-5FD8-4405-92D3-C9472E3DFAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D765D65A-5FD8-4405-92D3-C9472E3DFAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D765D65A-5FD8-4405-92D3-C9472E3DFAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65FF8E8A-830E-4848-8B26-37AD3F77BB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65FF8E8A-830E-4848-8B26-37AD3F77BB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65FF8E8A-830E-4848-8B26-37AD3F77BB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65FF8E8A-830E-4848-8B26-37AD3F77BB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7728EC47-1E68-47E5-89B6-2A5765458114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7728EC47-1E68-47E5-89B6-2A5765458114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7728EC47-1E68-47E5-89B6-2A5765458114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7728EC47-1E68-47E5-89B6-2A5765458114}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C68CDDD4-7A9C-41CB-8622-A673C4AE0F71} = {BF458AB0-0759-4473-801F-F41F36D57FD9}
+		{D765D65A-5FD8-4405-92D3-C9472E3DFAC8} = {BF458AB0-0759-4473-801F-F41F36D57FD9}
+		{65FF8E8A-830E-4848-8B26-37AD3F77BB73} = {0B6C1728-834F-41E6-A0DA-14F859776F0B}
+		{7728EC47-1E68-47E5-89B6-2A5765458114} = {0B6C1728-834F-41E6-A0DA-14F859776F0B}
+	EndGlobalSection
+EndGlobal
