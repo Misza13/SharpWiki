@@ -49,17 +49,15 @@
             
             foreach (var (_, ns) in result.query.namespaces)
             {
-                // The "main"/"Article" namespace does not have this set,
-                // but we need it as a key:
-                ns.canonical ??= "";
+                var nsName = ns.name ?? ns.canonical ?? "";
                 
                 var @namespace = new Namespace(
                     this,
                     ns.id,
-                    ns.canonical);
+                    nsName);
 
                 this.Namespaces[ns.id] = @namespace;
-                this.NamespacesByName[ns.canonical] = @namespace;
+                this.NamespacesByName[nsName] = @namespace;
             }
         }
 
@@ -89,6 +87,16 @@
         
         public Page GetPage(int namespaceId, string title)
         {
+            if (namespaceId != 0)
+            {
+                var nsPrefix = this.Namespaces[namespaceId].Name + ":";
+                
+                if (title.StartsWith(nsPrefix))
+                {
+                    title = title[nsPrefix.Length..];
+                }
+            }
+            
             return new Page(this, namespaceId, title);
         }
 

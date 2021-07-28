@@ -71,5 +71,18 @@ namespace SharpWiki.IntegrationTests
                 Console.WriteLine(category);
             }
         }
+
+        [TestCase("Physics")]
+        [TestCase("German Nobel laureates")]
+        [TestCase("Wikipedia administrators")]
+        public async Task GetCategoryMembers(string categoryName)
+        {
+            var cat = this.site.GetCategory(14, categoryName);
+
+            await foreach (var page in cat.GetMembers())
+            {
+                Console.WriteLine(page);
+            }
+        }
     }
 }

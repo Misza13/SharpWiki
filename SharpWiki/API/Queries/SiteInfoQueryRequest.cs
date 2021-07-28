@@ -6,5 +6,7 @@ namespace SharpWiki.API.Queries
         public string meta => "siteinfo";
 
         public string siprop => "general|namespaces";
+
+        public int formatversion => 2;
     }
 }

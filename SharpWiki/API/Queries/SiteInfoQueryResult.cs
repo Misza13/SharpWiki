@@ -16,6 +16,8 @@ namespace SharpWiki.API.Queries
         {
             public int id { get; set; }
 
+            public string name { get; set; }
+
             public string canonical { get; set; }
         }
     }
