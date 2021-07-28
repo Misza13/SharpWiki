@@ -87,7 +87,7 @@
         
         public Page GetPage(int namespaceId, string title)
         {
-            if (namespaceId != 0)
+            if (namespaceId != 0 && this.Namespaces.ContainsKey(namespaceId))
             {
                 var nsPrefix = this.Namespaces[namespaceId].Name + ":";
                 
