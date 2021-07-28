@@ -35,6 +35,57 @@ namespace SharpWiki.IntegrationTests
         }
         
         [Test]
+        public async Task LinksFromArticleToArticlesDescending()
+        {
+            var page = this.site
+                .GetNamespace("")
+                .GetPage("Albert Einstein");
+
+            var list = page.GetLinks()
+                .Descending()
+                .OnlyToNamespaces(0);
+
+            await foreach (var link in list)
+            {
+                Console.WriteLine(link);
+            }
+        }
+        
+        [Test]
+        public async Task LinksToNamespaceByName()
+        {
+            var page = this.site
+                .GetNamespace("")
+                .GetPage("Wikipedia:Bots");
+
+            var list = page.GetLinks()
+                .Descending()
+                .OnlyToNamespaces("User");
+
+            await foreach (var link in list)
+            {
+                Console.WriteLine(link);
+            }
+        }
+        
+        [Test]
+        public async Task LinksToNamespaceByObject()
+        {
+            var page = this.site
+                .GetNamespace("")
+                .GetPage("User:Jimbo Wales");
+
+            var list = page.GetLinks()
+                .Descending()
+                .OnlyToNamespaces(this.site.GetNamespace("Template"));
+
+            await foreach (var link in list)
+            {
+                Console.WriteLine(link);
+            }
+        }
+
+        [Test]
         public async Task LinksFromUserPage()
         {
             var page = this.site

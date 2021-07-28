@@ -30,25 +30,9 @@
             this.Title = title;
         }
 
-        public IAsyncEnumerable<Page> GetLinks()
+        public LinksQuery GetLinks()
         {
-            return this.Site.ApiWrapper.RunPaginatingQuery
-                <LinksQueryRequest, LinksQueryResult, LinksQueryResult.LinkInfo, Page>(
-                    () => new LinksQueryRequest(this.CanonicalTitle),
-                    (request, c) => request.WithContinuation(c),
-                    result => result.query.pages.First().Value.links,
-                    item =>
-                    {
-                        var ns = item.ns;
-                        var title = item.title;
-                        if (ns != 0)
-                        {
-                            title = title.Split(':', 2)[1];
-                        }
-                    
-                        return this.Site.GetCategory(ns, title);
-                    },
-                    result => result?.@continue?.plcontinue);
+            return new LinksQuery(this.Site, this);
         }
 
         public IAsyncEnumerable<Category> GetCategories()

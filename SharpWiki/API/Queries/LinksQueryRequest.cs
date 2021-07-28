@@ -9,7 +9,11 @@ namespace SharpWiki.API.Queries
 
         public string plcontinue { get; private set; }
 
-        public int pllimit { get; private set; } = 100;
+        public string pllimit => "max";
+
+        public string pldir { get; private set; }
+
+        public string plnamespace { get; set; }
 
         public LinksQueryRequest(string titles, string plcontinue = null)
         {
@@ -23,9 +27,15 @@ namespace SharpWiki.API.Queries
             return this;
         }
 
-        public LinksQueryRequest WithLimit(int limit)
+        public LinksQueryRequest WithDirection(string pldir)
         {
-            this.pllimit = limit;
+            this.pldir = pldir;
+            return this;
+        }
+
+        public LinksQueryRequest WithNamespaces(params int[] namespaceIds)
+        {
+            this.plnamespace = string.Join('|', namespaceIds);
             return this;
         }
     }
