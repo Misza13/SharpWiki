@@ -1,6 +1,5 @@
 ﻿namespace SharpWiki.Model
 {
-    using System.Collections.Generic;
     using API.Queries;
     using SharpWiki.Model.Queries;
 

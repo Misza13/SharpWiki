@@ -1,4 +1,5 @@
-﻿namespace SharpWiki.API.Queries
+﻿// ReSharper disable InconsistentNaming
+namespace SharpWiki.API.Queries
 {
     internal class CategoriesQueryRequest : QueryRequest<CategoriesQueryResult>
     {
