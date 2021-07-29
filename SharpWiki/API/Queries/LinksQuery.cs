@@ -8,19 +8,16 @@
 
     internal class LinksQuery : PaginatingQuery<LinksQueryRequest, LinksQueryResult, Page>, ILinksQuery
     {
-        private readonly MediaWikiSite site;
         private readonly Page page;
 
-        public LinksQuery(MediaWikiSite site, Page page)
+        public LinksQuery(MediaWikiSite site, Page page) : base(site)
         {
-            this.site = site;
             this.page = page;
         }
         
         public override IAsyncEnumerator<Page> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
         {
             return this.Execute(
-                this.site.ApiWrapper,
                 () => new LinksQueryRequest(this.page.CanonicalTitle),
                 (request, c) => request.WithContinue(c),
                 result => result.query.pages.First().Value.links,
@@ -33,7 +30,7 @@
                         title = title.Split(':', 2)[1];
                     }
                     
-                    return this.site.GetCategory(ns, title);
+                    return this.Site.GetPage(ns, title);
                 },
                 result => result?.@continue?.plcontinue)
                 .GetAsyncEnumerator(cancellationToken);
@@ -41,27 +38,32 @@
 
         public ILinksQuery Descending()
         {
-            this.RequestMods.Add(req => req.WithDirection("descending"));
+            this.RequestMods.Add(request =>
+                request.WithDirection("descending"));
             return this;
         }
 
         public ILinksQuery OnlyToNamespaces(params int[] namespaceIds)
         {
-            this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));
+            this.RequestMods.Add(request =>
+                request.WithNamespaces(namespaceIds));
             return this;
         }
 
         public ILinksQuery OnlyToNamespaces(params string[] namespaceNames)
         {
-            var namespaceIds = namespaceNames.Select(ns => this.site.NamespacesByName[ns].Id).ToArray();
-            this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));
+            var namespaceIds = namespaceNames.Select(
+                ns => this.Site.NamespacesByName[ns].Id).ToArray();
+            this.RequestMods.Add(request =>
+                request.WithNamespaces(namespaceIds));
             return this;
         }
 
         public ILinksQuery OnlyToNamespaces(params Namespace[] namespaces)
         {
             var namespaceIds = namespaces.Select(ns => ns.Id).ToArray();
-            this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));
+            this.RequestMods.Add(request =>
+                request.WithNamespaces(namespaceIds));
             return this;
         }
     }

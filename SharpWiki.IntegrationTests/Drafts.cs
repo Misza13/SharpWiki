@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
 namespace SharpWiki.IntegrationTests
 {
@@ -131,6 +131,30 @@ namespace SharpWiki.IntegrationTests
             await foreach (var page in cat.GetMembers())
             {
                 Console.WriteLine(page);
+            }
+        }
+
+        [Test]
+        public async Task GetSubcategories()
+        {
+            var cat = this.site.GetCategory(14, "Physics");
+
+            await foreach (var subcat in cat
+                .GetMembers().OnlySubcategories().Descending())
+            {
+                Console.WriteLine(subcat);
+            }
+        }
+        
+        [Test]
+        public async Task GetMembersByTimestamp()
+        {
+            var cat = this.site.GetCategory(14, "2021 deaths");
+
+            await foreach (var subcat in cat
+                .GetMembers().OnlyPages().ByTimestamp().Descending())
+            {
+                Console.WriteLine(subcat);
             }
         }
     }

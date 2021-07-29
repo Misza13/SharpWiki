@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using API.Queries;
+    using SharpWiki.Model.Queries;
 
     public class Category : Page
     {
@@ -13,15 +14,9 @@
         /// Get all pages that are contained in this category.
         /// </summary>
         /// <returns></returns>
-        public IAsyncEnumerable<Page> GetMembers()
+        public ICategoryMembersQuery GetMembers()
         {
-            return this.Site.ApiWrapper.RunPaginatingQuery
-                <CategoryMembersQueryRequest, CategoryMembersQueryResult, CategoryMembersQueryResult.PageInfo, Page>(
-                    () => new CategoryMembersQueryRequest(this.CanonicalTitle),
-                    (request, c) => request.WithContinue(c),
-                    result => result.query.categorymembers,
-                    item => this.Site.GetPage(item.ns, item.title),
-                    result => result.@continue?.cmcontinue);
+            return new CategoryMembersQuery(this.Site, this);
         }
     }
 }
