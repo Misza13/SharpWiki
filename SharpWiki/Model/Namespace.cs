@@ -8,7 +8,7 @@
         public MediaWikiSite Site { get; }
         
         /// <summary>
-        /// <code>id</code> of the namespace.
+        /// <c>id</c> of the namespace.
         /// </summary>
         public int Id { get; }
 

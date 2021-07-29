@@ -11,7 +11,7 @@
         public MediaWikiSite Site { get; }
 
         /// <summary>
-        /// <code>id</code> of namespace that this page belongs to.
+        /// <c>id</c> of namespace that this page belongs to.
         /// </summary>
         public int NamespaceId { get; }
 

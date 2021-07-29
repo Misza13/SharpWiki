@@ -17,7 +17,7 @@
         /// <summary>
         /// Modify the query so that only links to given namespaces are returned.
         /// </summary>
-        /// <param name="namespaceIds"><code>id</code>s of namespaces to filter on</param>
+        /// <param name="namespaceIds"><c>id</c>s of namespaces to filter on</param>
         /// <returns>Self, for fluent chaining or iteration</returns>
         ILinksQuery OnlyToNamespaces(params int[] namespaceIds);
 

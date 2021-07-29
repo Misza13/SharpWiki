@@ -45,7 +45,7 @@
         /// <summary>
         /// Modify the query so that only pages from given namespaces are returned.
         /// </summary>
-        /// <param name="namespaceIds"><code>id</code>s of namespaces to filter on</param>
+        /// <param name="namespaceIds"><c>id</c>s of namespaces to filter on</param>
         /// <returns>Self, for fluent chaining or iteration</returns>
         ICategoryMembersQuery OnlyToNamespaces(params int[] namespaceIds);
 

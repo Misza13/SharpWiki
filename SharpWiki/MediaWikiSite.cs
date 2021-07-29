@@ -84,7 +84,7 @@
         public Namespace GetNamespace(string name) => this.NamespacesByName[name];
 
         /// <summary>
-        /// Get an article (that is, page from namespace with <code>id = 0</code>) by its title.
+        /// Get an article (that is, page from namespace with <c>id = 0</c>) by its title.
         /// </summary>
         /// <param name="title">Title of the article</param>
         /// <returns>The article</returns>
@@ -93,7 +93,7 @@
         /// <summary>
         /// Get a page on the site.
         /// </summary>
-        /// <param name="namespaceId"><code>id</code> of the namespace</param>
+        /// <param name="namespaceId"><c>id</c> of the namespace</param>
         /// <param name="title">Title of the page</param>
         /// <returns>The <see cref="Page"/></returns>
         public Page GetPage(int namespaceId, string title)
@@ -125,7 +125,7 @@
         /// <summary>
         /// Get a category on the site.
         /// </summary>
-        /// <param name="namespaceId"><code>id</code> of the namespace</param>
+        /// <param name="namespaceId"><c>id</c> of the namespace</param>
         /// <param name="title">Title of the category</param>
         /// <returns>The <see cref="Page"/></returns>
         public Category GetCategory(int namespaceId, string title)
