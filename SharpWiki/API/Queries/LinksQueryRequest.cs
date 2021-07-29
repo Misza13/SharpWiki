@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace SharpWiki.API.Queries
 {
-    public class LinksQueryRequest : QueryRequest<LinksQueryResult>
+    internal class LinksQueryRequest : QueryRequest<LinksQueryResult>
     {
         public string prop => "links";
 
@@ -15,7 +15,7 @@ namespace SharpWiki.API.Queries
 
         public string plnamespace { get; set; }
 
-        internal LinksQueryRequest(string titles, string plcontinue = null)
+        public LinksQueryRequest(string titles, string plcontinue = null)
         {
             this.titles = titles;
             this.plcontinue = plcontinue;

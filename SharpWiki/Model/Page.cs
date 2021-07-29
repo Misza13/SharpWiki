@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using API.Queries;
+    using SharpWiki.Model.Queries;
 
     public class Page
     {
@@ -30,7 +31,7 @@
             this.Title = title;
         }
 
-        public LinksQuery GetLinks()
+        public ILinksQuery GetLinks()
         {
             return new LinksQuery(this.Site, this);
         }

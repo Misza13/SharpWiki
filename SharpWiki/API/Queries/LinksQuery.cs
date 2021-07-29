@@ -4,13 +4,14 @@
     using System.Linq;
     using System.Threading;
     using Model;
+    using SharpWiki.Model.Queries;
 
-    public class LinksQuery : PaginatingQuery<LinksQueryRequest, LinksQueryResult, Page>
+    internal class LinksQuery : PaginatingQuery<LinksQueryRequest, LinksQueryResult, Page>, ILinksQuery
     {
         private readonly MediaWikiSite site;
         private readonly Page page;
 
-        internal LinksQuery(MediaWikiSite site, Page page)
+        public LinksQuery(MediaWikiSite site, Page page)
         {
             this.site = site;
             this.page = page;
@@ -38,26 +39,26 @@
                 .GetAsyncEnumerator(cancellationToken);
         }
 
-        public LinksQuery Descending()
+        public ILinksQuery Descending()
         {
             this.RequestMods.Add(req => req.WithDirection("descending"));
             return this;
         }
 
-        public LinksQuery OnlyToNamespaces(params int[] namespaceIds)
+        public ILinksQuery OnlyToNamespaces(params int[] namespaceIds)
         {
             this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));
             return this;
         }
 
-        public LinksQuery OnlyToNamespaces(params string[] namespaceNames)
+        public ILinksQuery OnlyToNamespaces(params string[] namespaceNames)
         {
             var namespaceIds = namespaceNames.Select(ns => this.site.NamespacesByName[ns].Id).ToArray();
             this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));
             return this;
         }
 
-        public LinksQuery OnlyToNamespaces(params Namespace[] namespaces)
+        public ILinksQuery OnlyToNamespaces(params Namespace[] namespaces)
         {
             var namespaceIds = namespaces.Select(ns => ns.Id).ToArray();
             this.RequestMods.Add(req => req.WithNamespaces(namespaceIds));

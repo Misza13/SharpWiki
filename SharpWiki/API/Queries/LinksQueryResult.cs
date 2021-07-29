@@ -3,7 +3,7 @@ namespace SharpWiki.API.Queries
 {
     using System.Collections.Generic;
 
-    public class LinksQueryResult
+    internal class LinksQueryResult
     {
         public ContinueSection @continue { get; set; }
         

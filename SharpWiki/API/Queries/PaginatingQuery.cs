@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading;
 
-    public abstract class PaginatingQuery<TReq, TRes, TMod> : IAsyncEnumerable<TMod>
+    internal abstract class PaginatingQuery<TReq, TRes, TMod> : IAsyncEnumerable<TMod>
         where TReq : ApiRequest<TRes>
     {
         protected readonly List<Func<TReq, TReq>> RequestMods =
