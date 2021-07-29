@@ -4,9 +4,13 @@
     using System.Collections.Generic;
     using System.Threading;
 
-    public abstract class PaginatingQuery<TMod> : IAsyncEnumerable<TMod>
+    public abstract class PaginatingQuery<TReq, TRes, TMod> : IAsyncEnumerable<TMod>
+        where TReq : ApiRequest<TRes>
     {
-        protected async IAsyncEnumerable<TMod> Execute<TReq, TRes, TItem>(
+        protected readonly List<Func<TReq, TReq>> RequestMods =
+            new List<Func<TReq, TReq>>();
+        
+        protected async IAsyncEnumerable<TMod> Execute<TItem>(
             IApiWrapper apiWrapper,
             Func<TReq> requestBuilder,
             Action<TReq, string> continuationSetter,
@@ -19,13 +23,18 @@
             while (true)
             {
                 var request = requestBuilder();
+                
+                foreach (var requestMod in this.RequestMods)
+                {
+                    request = requestMod(request);
+                }
 
                 if (!string.IsNullOrEmpty(continuation))
                 {
                     continuationSetter(request, continuation);
                 }
                 
-                var result = await apiWrapper.Get<TRes>((ApiRequest<TRes>)(object)request);
+                var result = await apiWrapper.Get(request);
                 
                 var items = itemListGetter(result);
             

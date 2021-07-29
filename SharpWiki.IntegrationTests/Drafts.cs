@@ -59,7 +59,6 @@ namespace SharpWiki.IntegrationTests
                 .GetPage("Wikipedia:Bots");
 
             var list = page.GetLinks()
-                .Descending()
                 .OnlyToNamespaces("User");
 
             await foreach (var link in list)
@@ -76,8 +75,7 @@ namespace SharpWiki.IntegrationTests
                 .GetPage("User:Jimbo Wales");
 
             var list = page.GetLinks()
-                .Descending()
-                .OnlyToNamespaces(this.site.GetNamespace("Template"));
+                .OnlyToNamespaces(this.site.GetNamespace("Wikipedia"));
 
             await foreach (var link in list)
             {

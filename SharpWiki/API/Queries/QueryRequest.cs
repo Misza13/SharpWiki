@@ -1,6 +1,6 @@
 ﻿namespace SharpWiki.API.Queries
 {
-    internal abstract class QueryRequest<TResult> : ApiRequest<TResult>
+    public abstract class QueryRequest<TResult> : ApiRequest<TResult>
     {
         internal QueryRequest() : base("query")
         {

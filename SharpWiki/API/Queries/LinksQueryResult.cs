@@ -3,7 +3,7 @@ namespace SharpWiki.API.Queries
 {
     using System.Collections.Generic;
 
-    internal class LinksQueryResult
+    public class LinksQueryResult
     {
         public ContinueSection @continue { get; set; }
         
@@ -11,19 +11,21 @@ namespace SharpWiki.API.Queries
 
         public QuerySection query { get; set; }
 
-        internal class ContinueSection
+        internal LinksQueryResult() {}
+
+        public class ContinueSection
         {
             public string plcontinue { get; set; }
 
             public string @continue { get; set; }
         }
-        
-        internal class QuerySection
+
+        public class QuerySection
         {
             public Dictionary<string, PageLinkInfo> pages { get; set; }
         }
-        
-        internal class PageLinkInfo
+
+        public class PageLinkInfo
         {
             public int pageid { get; set; }
 
@@ -33,8 +35,8 @@ namespace SharpWiki.API.Queries
 
             public List<LinkInfo> links { get; set; }
         }
-        
-        internal class LinkInfo
+
+        public class LinkInfo
         {
             public int ns { get; set; }
 
