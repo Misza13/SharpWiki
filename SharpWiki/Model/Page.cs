@@ -53,7 +53,7 @@
         /// can be refined with a fluent interface, see <see cref="ILinksQuery"/>.</returns>
         public ILinksQuery GetLinks()
         {
-            return new LinksQuery(this.Site, this);
+            return new LinksQuery(this);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@
         /// can be refined with a fluent interface, see <see cref="ILinksQuery"/>.</returns>
         public ICategoriesQuery GetCategories()
         {
-            return new CategoriesQuery(this.Site, this);
+            return new CategoriesQuery(this);
         }
 
         public override string ToString()

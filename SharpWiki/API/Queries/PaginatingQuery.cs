@@ -7,24 +7,16 @@
     internal abstract class PaginatingQuery<TReq, TRes, TMod> : IAsyncEnumerable<TMod>
         where TReq : ApiRequest<TRes>
     {
-        protected readonly MediaWikiSite Site;
-        
         protected readonly List<Func<TReq, TReq>> RequestMods = new List<Func<TReq, TReq>>();
 
-        protected PaginatingQuery(MediaWikiSite site)
-        {
-            this.Site = site;
-        }
-        
         protected async IAsyncEnumerable<TMod> Execute<TItem>(
+            IApiWrapper apiWrapper,
             Func<TReq> requestBuilder,
             Action<TReq, string> continuationSetter,
             Func<TRes, IEnumerable<TItem>> itemListGetter,
             Func<TItem, TMod> resultProducer,
             Func<TRes, string> continuationGetter)
         {
-            var apiWrapper = this.Site.ApiWrapper;
-            
             string continuation = null;
             
             while (true)

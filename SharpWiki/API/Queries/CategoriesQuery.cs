@@ -10,14 +10,17 @@
     {
         private readonly Page page;
 
-        public CategoriesQuery(MediaWikiSite site, Page page) : base(site)
+        public CategoriesQuery(Page page)
         {
             this.page = page;
         }
 
         public override IAsyncEnumerator<Category> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
         {
+            var site = this.page.Site;
+            
             return this.Execute(
+                    site.ApiWrapper,
                     () => new CategoriesQueryRequest(this.page.CanonicalTitle),
                     (request, c) => request.WithContinue(c),
                     result => result.query.pages.First().Value.categories,
@@ -30,7 +33,7 @@
                             title = title.Split(':', 2)[1];
                         }
                     
-                        return this.Site.GetCategory(ns, title);
+                        return site.GetCategory(ns, title);
                     },
                     result => result?.@continue?.clcontinue)
                 .GetAsyncEnumerator(cancellationToken);

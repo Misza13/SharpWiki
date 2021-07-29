@@ -10,14 +10,17 @@
     {
         private readonly Category category;
 
-        public CategoryMembersQuery(MediaWikiSite site, Category category) : base(site)
+        public CategoryMembersQuery(Category category)
         {
             this.category = category;
         }
         
         public override IAsyncEnumerator<Page> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
         {
+            var site = this.category.Site;
+            
             return this.Execute(
+                    site.ApiWrapper,
                     () => new CategoryMembersQueryRequest(this.category.CanonicalTitle),
                     (request, c) => request.WithContinue(c),
                     result => result.query.categorymembers,
@@ -30,7 +33,7 @@
                             title = title.Split(':', 2)[1];
                         }
                     
-                        return this.Site.GetPage(ns, title);
+                        return site.GetPage(ns, title);
                     },
                     result => result?.@continue?.cmcontinue)
                 .GetAsyncEnumerator(cancellationToken);
@@ -74,7 +77,7 @@
         public ICategoryMembersQuery OnlyToNamespaces(params string[] namespaceNames)
         {
             var namespaceIds = namespaceNames.Select(
-                ns => this.Site.NamespacesByName[ns].Id).ToArray();
+                ns => this.category.Site.NamespacesByName[ns].Id).ToArray();
             this.RequestMods.Add(request =>
                 request.WithNamespaces(namespaceIds));
             return this;

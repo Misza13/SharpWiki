@@ -10,14 +10,17 @@
     {
         private readonly Page page;
 
-        public LinksQuery(MediaWikiSite site, Page page) : base(site)
+        public LinksQuery(Page page)
         {
             this.page = page;
         }
         
         public override IAsyncEnumerator<Page> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
         {
+            var site = this.page.Site;
+            
             return this.Execute(
+                site.ApiWrapper,
                 () => new LinksQueryRequest(this.page.CanonicalTitle),
                 (request, c) => request.WithContinue(c),
                 result => result.query.pages.First().Value.links,
@@ -30,7 +33,7 @@
                         title = title.Split(':', 2)[1];
                     }
                     
-                    return this.Site.GetPage(ns, title);
+                    return site.GetPage(ns, title);
                 },
                 result => result?.@continue?.plcontinue)
                 .GetAsyncEnumerator(cancellationToken);
@@ -53,7 +56,7 @@
         public ILinksQuery OnlyToNamespaces(params string[] namespaceNames)
         {
             var namespaceIds = namespaceNames.Select(
-                ns => this.Site.NamespacesByName[ns].Id).ToArray();
+                ns => this.page.Site.NamespacesByName[ns].Id).ToArray();
             this.RequestMods.Add(request =>
                 request.WithNamespaces(namespaceIds));
             return this;
