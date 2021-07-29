@@ -10,6 +10,10 @@
 
         public string cllimit { get; private set; } = "max";
 
+        public string cldir { get; set; } = "ascending";
+
+        public string clshow { get; set; }
+
         public CategoriesQueryRequest(string titles)
         {
             this.titles = titles;
@@ -24,6 +28,18 @@
         public CategoriesQueryRequest WithLimit(int limit)
         {
             this.cllimit = limit.ToString();
+            return this;
+        }
+
+        public CategoriesQueryRequest WithDirection(string direction)
+        {
+            this.cldir = direction;
+            return this;
+        }
+
+        public CategoriesQueryRequest WithShow(string show)
+        {
+            this.clshow = show;
             return this;
         }
     }

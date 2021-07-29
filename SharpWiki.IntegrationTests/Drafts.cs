@@ -102,7 +102,7 @@ namespace SharpWiki.IntegrationTests
             var page = this.site
                 .GetArticle("Albert Einstein");
 
-            await foreach (var category in page.GetCategories())
+            await foreach (var category in page.GetCategories().Descending())
             {
                 Console.WriteLine(category);
             }
@@ -155,6 +155,28 @@ namespace SharpWiki.IntegrationTests
                 .GetMembers().OnlyPages().ByTimestamp().Descending())
             {
                 Console.WriteLine(subcat);
+            }
+        }
+
+        [Test]
+        public async Task GetHiddenCategories()
+        {
+            var page = this.site.GetArticle("Albert Einstein");
+
+            await foreach (var category in page.GetCategories().OnlyHidden())
+            {
+                Console.WriteLine(category);
+            }
+        }
+
+        [Test]
+        public async Task GetNonHiddenCategories()
+        {
+            var page = this.site.GetArticle("Albert Einstein");
+
+            await foreach (var category in page.GetCategories().OnlyNonHidden())
+            {
+                Console.WriteLine(category);
             }
         }
     }

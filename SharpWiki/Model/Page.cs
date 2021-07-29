@@ -61,26 +61,11 @@
         /// <summary>
         /// Get all categories that this page belongs to.
         /// </summary>
-        /// <returns></returns>
-        public IAsyncEnumerable<Category> GetCategories()
+        /// <returns>A query listing the <see cref="Category">Categories</see>,
+        /// can be refined with a fluent interface, see <see cref="ILinksQuery"/>.</returns>
+        public ICategoriesQuery GetCategories()
         {
-            return this.Site.ApiWrapper.RunPaginatingQuery
-                <CategoriesQueryRequest, CategoriesQueryResult, CategoriesQueryResult.CategoryInfo, Category>(
-                    () => new CategoriesQueryRequest(this.CanonicalTitle),
-                    (request, c) => request.WithContinue(c),
-                    result => result.query.pages.First().Value.categories,
-                    item =>
-                    {
-                        var ns = item.ns;
-                        var title = item.title;
-                        if (ns != 0)
-                        {
-                            title = title.Split(':', 2)[1];
-                        }
-                        
-                        return this.Site.GetCategory(ns, title);
-                    },
-                    result => result?.@continue?.clcontinue);
+            return new CategoriesQuery(this.Site, this);
         }
 
         public override string ToString()
