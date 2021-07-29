@@ -13,7 +13,8 @@
         /// <summary>
         /// Get all pages that are contained in this category.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A query listing the <see cref="Page"/>s,
+        /// can be refined with a fluent interface, see <see cref="ILinksQuery"/>.</returns>
         public ICategoryMembersQuery GetMembers()
         {
             return new CategoryMembersQuery(this.Site, this);
