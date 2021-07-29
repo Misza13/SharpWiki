@@ -7,12 +7,29 @@
 
     public class Page
     {
+        /// <summary>
+        /// The <see cref="MediaWikiSite"/> this page belongs to.
+        /// </summary>
         public MediaWikiSite Site { get; }
 
+        /// <summary>
+        /// <code>id</code> of namespace that this page belongs to.
+        /// </summary>
         public int NamespaceId { get; }
 
+        /// <summary>
+        /// <see cref="Namespace"/> that this page belongs to.
+        /// </summary>
+        public Namespace Namespace => this.Site.Namespaces[this.NamespaceId];
+
+        /// <summary>
+        /// Title of page without namespace.
+        /// </summary>
         public string Title { get; }
 
+        /// <summary>
+        /// Full title of page (includes namespace).
+        /// </summary>
         public string CanonicalTitle
         {
             get
@@ -31,11 +48,20 @@
             this.Title = title;
         }
 
+        /// <summary>
+        /// Get all pages that this page links to.
+        /// </summary>
+        /// <returns>A query listing the <see cref="Page"/>s,
+        /// can be refined with a fluent interface, see <see cref="ILinksQuery"/>.</returns>
         public ILinksQuery GetLinks()
         {
             return new LinksQuery(this.Site, this);
         }
 
+        /// <summary>
+        /// Get all categories that this page belongs to.
+        /// </summary>
+        /// <returns></returns>
         public IAsyncEnumerable<Category> GetCategories()
         {
             return this.Site.ApiWrapper.RunPaginatingQuery

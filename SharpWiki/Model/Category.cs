@@ -9,6 +9,10 @@
         {
         }
 
+        /// <summary>
+        /// Get all pages that are contained in this category.
+        /// </summary>
+        /// <returns></returns>
         public IAsyncEnumerable<Page> GetMembers()
         {
             return this.Site.ApiWrapper.RunPaginatingQuery
