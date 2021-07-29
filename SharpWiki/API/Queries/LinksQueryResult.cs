@@ -11,8 +11,6 @@ namespace SharpWiki.API.Queries
 
         public QuerySection query { get; set; }
 
-        internal LinksQueryResult() {}
-
         public class ContinueSection
         {
             public string plcontinue { get; set; }
