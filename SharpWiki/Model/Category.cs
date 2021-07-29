@@ -18,7 +18,7 @@
             return this.Site.ApiWrapper.RunPaginatingQuery
                 <CategoryMembersQueryRequest, CategoryMembersQueryResult, CategoryMembersQueryResult.PageInfo, Page>(
                     () => new CategoryMembersQueryRequest(this.CanonicalTitle),
-                    (request, c) => request.WithContinuation(c),
+                    (request, c) => request.WithContinue(c),
                     result => result.query.categorymembers,
                     item => this.Site.GetPage(item.ns, item.title),
                     result => result.@continue?.cmcontinue);

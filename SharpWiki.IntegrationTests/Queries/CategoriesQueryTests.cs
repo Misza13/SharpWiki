@@ -74,7 +74,7 @@ namespace SharpWiki.IntegrationTests.Queries
             var firstLink = prepResult.query.pages["736"].categories[0].title;
             
             var queryParameters = new CategoriesQueryRequest("Albert Einstein")
-                .WithContinuation(prepResult.@continue.clcontinue)
+                .WithContinue(prepResult.@continue.clcontinue)
                 .WithLimit(10);
 
             // Act

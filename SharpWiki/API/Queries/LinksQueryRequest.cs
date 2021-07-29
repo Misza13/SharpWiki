@@ -15,21 +15,20 @@ namespace SharpWiki.API.Queries
 
         public string plnamespace { get; set; }
 
-        public LinksQueryRequest(string titles, string plcontinue = null)
+        public LinksQueryRequest(string titles)
         {
             this.titles = titles;
-            this.plcontinue = plcontinue;
         }
 
-        public LinksQueryRequest WithContinuation(string plcontinue)
+        public LinksQueryRequest WithContinue(string @continue)
         {
-            this.plcontinue = plcontinue;
+            this.plcontinue = @continue;
             return this;
         }
 
-        public LinksQueryRequest WithDirection(string pldir)
+        public LinksQueryRequest WithDirection(string dir)
         {
-            this.pldir = pldir;
+            this.pldir = dir;
             return this;
         }
 

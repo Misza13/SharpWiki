@@ -22,7 +22,7 @@
             return this.Execute(
                 this.site.ApiWrapper,
                 () => new LinksQueryRequest(this.page.CanonicalTitle),
-                (request, c) => request.WithContinuation(c),
+                (request, c) => request.WithContinue(c),
                 result => result.query.pages.First().Value.links,
                 item =>
                 {

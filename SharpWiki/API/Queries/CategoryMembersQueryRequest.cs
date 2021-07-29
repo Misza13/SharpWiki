@@ -8,23 +8,22 @@
 
         public string cmcontinue { get; private set; }
 
-        public int cmlimit { get; private set; } = 100;
+        public string cmlimit { get; private set; } = "max";
         
-        public CategoryMembersQueryRequest(string title, string cmcontinue = null)
+        public CategoryMembersQueryRequest(string title)
         {
             this.cmtitle = title;
-            this.cmcontinue = cmcontinue;
         }
         
-        public CategoryMembersQueryRequest WithContinuation(string cmcontinue)
+        public CategoryMembersQueryRequest WithContinue(string @continue)
         {
-            this.cmcontinue = cmcontinue;
+            this.cmcontinue = @continue;
             return this;
         }
 
         public CategoryMembersQueryRequest WithLimit(int limit)
         {
-            this.cmlimit = limit;
+            this.cmlimit = limit.ToString();
             return this;
         }
     }

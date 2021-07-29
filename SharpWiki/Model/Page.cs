@@ -67,7 +67,7 @@
             return this.Site.ApiWrapper.RunPaginatingQuery
                 <CategoriesQueryRequest, CategoriesQueryResult, CategoriesQueryResult.CategoryInfo, Category>(
                     () => new CategoriesQueryRequest(this.CanonicalTitle),
-                    (request, c) => request.WithContinuation(c),
+                    (request, c) => request.WithContinue(c),
                     result => result.query.pages.First().Value.categories,
                     item =>
                     {

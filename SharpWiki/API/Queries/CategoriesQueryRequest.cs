@@ -8,23 +8,22 @@
 
         public string clcontinue { get; private set; }
 
-        public int cllimit { get; private set; } = 100;
+        public string cllimit { get; private set; } = "max";
 
-        public CategoriesQueryRequest(string titles, string clcontinue = null)
+        public CategoriesQueryRequest(string titles)
         {
             this.titles = titles;
-            this.clcontinue = clcontinue;
         }
         
-        public CategoriesQueryRequest WithContinuation(string clcontinue)
+        public CategoriesQueryRequest WithContinue(string @continue)
         {
-            this.clcontinue = clcontinue;
+            this.clcontinue = @continue;
             return this;
         }
 
         public CategoriesQueryRequest WithLimit(int limit)
         {
-            this.cllimit = limit;
+            this.cllimit = limit.ToString();
             return this;
         }
     }
